@@ -84,7 +84,12 @@ class BertChecker(Corrector):
         # load data and split in train-validation
         data_dir = DEFAULT_TRAINTEST_DATA_PATH if data_dir == "default" else data_dir
         train_data = load_data(data_dir, clean_file, corrupt_file)
-        train_data, valid_data = train_validation_split(train_data, 0.8, seed=11690)
+        
+        val_clean_file = clean_file.replace("train", "val")
+        val_corrupt_file = corrupt_file.replace("train", "val")
+        
+        valid_data = load_data(data_dir, val_clean_file, val_corrupt_file)
+        #train_data, valid_data = train_validation_split(train_data, 0.8, seed=11690)
         print("len of train and test data: ", len(train_data), len(valid_data))
 
         # load vocab and model
