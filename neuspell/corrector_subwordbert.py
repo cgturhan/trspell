@@ -73,6 +73,7 @@ class BertChecker(Corrector):
                  clean_file,
                  corrupt_file,
                  data_dir="",
+                 ckpt_dir ="",
                  validation_split=0.2,
                  n_epochs=2,
                  new_vocab_list: List = None):
@@ -83,6 +84,7 @@ class BertChecker(Corrector):
 
         # load data and split in train-validation
         data_dir = DEFAULT_TRAINTEST_DATA_PATH if data_dir == "default" else data_dir
+        ckpt_dir = self.DEFAULT_CHECKPOINT_PATH if ckpt_dir == "default" else ckpt_dir
         train_data = load_data(data_dir, clean_file, corrupt_file)
         
         val_clean_file = clean_file.replace("train", "val")
@@ -104,7 +106,7 @@ class BertChecker(Corrector):
         GRADIENT_ACC = 4
         DEVICE = self.device
         START_EPOCH, N_EPOCHS = 0, n_epochs
-        CHECKPOINT_PATH = os.path.join(self.ckpt_path if self.ckpt_path else data_dir, "new_models",
+        CHECKPOINT_PATH = os.path.join(ckpt_dir if ckpt_dir else data_dir, "new_models",
                                        os.path.split(self.bert_pretrained_name_or_path)[-1])
         if os.path.exists(CHECKPOINT_PATH):
             num = 1
