@@ -1,44 +1,20 @@
 <h1 align="center">
-<p>NeuSpell: A Neural Spelling Correction Toolkit
+<p>Spelling correction in Turkish using toolkits and LLMs
 </h1>
 
 # Contents
 
-- [Installation & Quick Start](#Installation)
-- Toolkit
-    - [Introduction](#Introduction)
+- [Installations](#Installation)
+- [Download Datasets](#Datasets)
+- Toolkits
     - [Download Checkpoints](#Download-Checkpoints)
-    - [Download Datasets](#Datasets)
-    - [Demo Setup](#Demo-Setup)
-    - [Text Noising](#Synthetic-data-creation)
-- [Finetuning on custom data and creating new models](#Finetuning-on-custom-data-and-creating-new-models)
-- [Applications](#Potential-applications-for-practitioners)
-- [Additional Requirements](#Additional-requirements)
+- LLMs
+    - [Download Checkpoints](#Download-Checkpoints)
+- [Additional requirements](#Additional-requirements)
 
-# Updates
+# Installation 
 
-### Latest
-
-- April 2021:
-    - APIs for creating synthetic data now available for English language.
-      See [Synthetic data creation](#Synthetic-data-creation).
-    - `neuspell` is now available through **pip**. See [Installation through pip](#Installation-through-pip)
-    - Added support for different transformer-based models such DistilBERT, XLM-RoBERTa, etc.
-      See [Finetuning on custom data and creating new models](#Finetuning-on-custom-data-and-creating-new-models)
-      section for more details.
-
-### Previous
-
-- March, 2021:
-    - Code-base reformatted. Addressed bug fixes and issues.
-- November, 2020:
-    - Neuspell's ```BERT``` pretrained model is now available as part of huggingface models
-      as ```murali1996/bert-base-cased-spell-correction```. We provide an example code snippet
-      at [./scripts/huggingface](./scripts/huggingface/huggingface-snippet-for-neuspell.py) for curious practitioners.
-- September, 2020:
-    - This work is accepted at EMNLP 2020 (system demonstrations)
-
-# Installation
+## Neuspell
 
 ```bash
 git clone https://github.com/neuspell/neuspell; cd neuspell
@@ -123,97 +99,23 @@ checkers- ```Aspell``` and ```Jamspell```.
 ```bash
 pip install neuspell
 ```
+## Symspell
+### Installation through pip
+!pip install -U symspellpy
 
-In v1.0, `allennlp` library is not automatically installed which is used for models containing ELMO. Hence, to utilize
-those checkers, do a source install as in [Installation & Quick Start](#Installation)
+## Hunspell
+### Installation through pip
+!sudo apt-get install libhunspell-dev
+!python -m pip install hunspell
 
-# Toolkit
+## Zemberek 
+### Installation through pip
+!pip install zemberek-python
 
-### Introduction
+## Jamspell 
+### Installation through pip
+!sudo pip install jamspell
 
-NeuSpell is an open-source toolkit for context sensitive spelling correction in English. This toolkit comprises of 10
-spell checkers, with evaluations on naturally occurring mis-spellings from multiple (publicly available) sources. To
-make neural models for spell checking context dependent, (i) we train neural models using spelling errors in context,
-synthetically constructed by reverse engineering isolated mis-spellings; and  (ii) use richer representations of the
-context.This toolkit enables NLP practitioners to use our proposed and existing spelling correction systems, both via a
-simple unified command line, as well as a web interface. Among many potential applications, we demonstrate the utility
-of our spell-checkers in combating adversarial misspellings.
-
-##### Live demo available at <http://neuspell.github.io/>
-
-<p align="center">
-    <br>
-    <img src="https://github.com/neuspell/neuspell/blob/master/images/ui.png?raw=true" width="400"/>
-    <br>
-<p>
-
-##### List of neural models in the toolkit:
-
-- [```CNN-LSTM```](https://drive.google.com/file/d/14XiDY4BJ144fVGE2cfWfwyjnMwBcwhNa/view?usp=sharing)
-- [```SC-LSTM```](https://drive.google.com/file/d/1OvbkdBXawnefQF1d-tUrd9lxiAH1ULtr/view?usp=sharing)
-- [```Nested-LSTM```](https://drive.google.com/file/d/19ZhWvBaZqrsP5cGqBJdFPtufdyBqQprI/view?usp=sharing)
-- [```BERT```](https://huggingface.co/transformers/bertology.html)
-- [```SC-LSTM plus ELMO (at input)```](https://drive.google.com/file/d/1mjLFuQ0vWOOpPqTVkFZ_MSHiuVUmgHSK/view?usp=sharing)
-- [```SC-LSTM plus ELMO (at output)```](https://drive.google.com/file/d/1P8vX9ByOBQpN9oeho_iOJmFJByv1ifI5/view?usp=sharing)
-- [```SC-LSTM plus BERT (at input)```](https://huggingface.co/transformers/bertology.html)
-- [```SC-LSTM plus BERT (at output)```](https://huggingface.co/transformers/bertology.html)
-
-<p align="center">
-    <br>
-    <img src="https://github.com/neuspell/neuspell/blob/master/images/pipeline.jpeg?raw=true" width="400"/>
-    <br>
-    This pipeline corresponds to the `SC-LSTM plus ELMO (at input)` model.
-<p>
-
-##### Performances
-
-| Spell<br>Checker    | Word<br>Correction <br>Rate | Time per<br>sentence <br>(in milliseconds) |
-|-------------------------------------|-----------------------|--------------------------------------|
-| ```Aspell```                        | 48.7                  | 7.3*                                 |
-| ``` Jamspell```                     | 68.9                  | 2.6*                                 |
-| ```CNN-LSTM```                      | 75.8                  | 4.2                                  |
-| ```SC-LSTM```                       | 76.7                  | 2.8                                  |
-| ```Nested-LSTM```                   | 77.3                  | 6.4                                  |
-| ```BERT```                          | 79.1                  | 7.1                                  |
-| ```SC-LSTM plus ELMO (at input)```  |  79.8                 | 15.8                                 |
-| ```SC-LSTM plus ELMO (at output)``` | 78.5                  | 16.3                                 |
-| ```SC-LSTM plus BERT (at input)```  | 77.0                  | 6.7                                  |
-| ```SC-LSTM plus BERT (at output)``` | 76.0                  | 7.2                                  |
-
-Performance of different correctors in the NeuSpell toolkit on the  ```BEA-60K```  dataset with real-world spelling
-mistakes. ∗ indicates evaluation on a CPU (for others we use a GeForce RTX 2080 Ti GPU).
-
-### Download Checkpoints
-
-To download selected checkpoints, select a **Checkpoint name** from below and then run download. Each checkpoint is
-associated with a neural spell checker as shown in the table.
-
-| Spell Checker                       | Class               | Checkpoint name             | Disk space (approx.) |
-|-------------------------------------|---------------------|-----------------------------|----------------------|
-| ```CNN-LSTM```                      | `CnnlstmChecker`    | 'cnn-lstm-probwordnoise'    | 450 MB               |
-| ```SC-LSTM```                       | `SclstmChecker`     | 'scrnn-probwordnoise'       | 450 MB               |
-| ```Nested-LSTM```                   | `NestedlstmChecker` | 'lstm-lstm-probwordnoise'   | 455 MB               |
-| ```BERT```                          | `BertChecker`       | 'subwordbert-probwordnoise' | 740 MB               |
-| ```SC-LSTM plus ELMO (at input)```  | `ElmosclstmChecker` | 'elmoscrnn-probwordnoise'   | 840 MB               |
-| ```SC-LSTM plus BERT (at input)```  | `BertsclstmChecker` | 'bertscrnn-probwordnoise'   | 900 MB               |
-| ```SC-LSTM plus BERT (at output)``` | `SclstmbertChecker` | 'scrnnbert-probwordnoise'   | 1.19 GB              |
-| ```SC-LSTM plus ELMO (at output)``` | `SclstmelmoChecker` | 'scrnnelmo-probwordnoise'   | 1.23 GB              |
-
-```python
-import neuspell
-
-neuspell.seq_modeling.downloads.download_pretrained_model("subwordbert-probwordnoise")
-```
-
-Alternatively, download all Neuspell neural models by running the following (available in versions after v1.0):
-
-```python
-import neuspell
-
-neuspell.seq_modeling.downloads.download_pretrained_model("_all_")
-```
-
-Alternatively,
 
 ### Datasets
 
@@ -232,41 +134,7 @@ startegies used to create them. For each strategy (see [Synthetic data creation]
 ∼20% of the tokens in the clean corpus. We use 1.6 Million sentences from
 the [```One billion word benchmark```](https://arxiv.org/abs/1312.3005) dataset as our clean corpus.
 
-### Demo Setup
 
-In order to setup a demo, follow these steps:
-
-- Do [Installation](#Installation) and then install flask requirements as  ```pip install -e ".[flask]"```
-- Download [checkpoints](#Pretrained-models) (__Note__: If you wish to use only one of the neural checkers, you need to
-  manually disable others in the imports of [./scripts/flask-server/app.py](./scripts/flask-server/app.py))
-- Start a flask server in folder [./scripts/flask-server](./scripts/flask-server) by
-  running `CUDA_VISIBLE_DEVICES=0 python app.py`
-  (on GPU) or `python app.py` (on CPU)
-
-### Synthetic data creation
-
-##### English
-
-This toolkit offers 3 kinds of noising strategies (identfied from existing literature) to generate synthetic parallel
-training data to train neural models for spell correction. The strategies include a simple lookup based noisy spelling
-replacement (`en-word-replacement-noise`), a character level noise induction such as swapping/deleting/adding/replacing
-characters (`en-char-replacement-noise`), and a confusion matrix based probabilistic character replacement driven by
-mistakes patterns in a large corpus of spelling mistakes (`en-probchar-replacement-noise`). For full details about these
-approaches, checkout our [paper](#Citation).
-
-Following are the corresponding class mappings to utilize the above noise curations. As some pre-built data files are
-used for some of the noisers, we also provide their approximate disk space.
-
-| Folder                          | Class name                                | Disk space (approx.) |
-|---------------------------------|-------------------------------------------|----------------------|
-| `en-word-replacement-noise`     | `WordReplacementNoiser`                   | 2 MB                 |
-| `en-char-replacement-noise`     | `CharacterReplacementNoiser`              | --                   |
-| `en-probchar-replacement-noise` | `ProbabilisticCharacterReplacementNoiser` | 80 MB                |
-
-Following is a snippet for using these noisers-
-
-```python
-from neuspell.noising import WordReplacementNoiser
 
 example_texts = [
     "This is an example sentence to demonstrate noising in the neuspell repository.",
@@ -353,17 +221,19 @@ checker.evaluate(clean_file=clean_file, corrupt_file=corrupt_file, data_dir=data
 Following usage above, once can now seamlessly utilize multilingual models such as `xlm-roberta-base`,
 `bert-base-multilingual-cased` and `distilbert-base-multilingual-cased` on a non-English script.
 
-# Potential applications for practitioners
 
-- Defenses against adversarial attacks in NLP
-    - example implementation available in folder ```./applications/Adversarial-Misspellings-arxiv```.
-      See [README.md](./applications/README.md).
-- Improving OCR text correction systems
-- Improving grammatical error correction systems
-- Improving Intent/Domain classifiers in conversational AI
-- Spell Checking in Collaboration and Productivity tools
+# Toolkits
+
+### Neuspell
+
+NeuSpell is an open-source context-aware spelling correction tookit in English, featuring 10 spell checkers evaluated on real misspellings from various sources. This repository implements Neuspell in Turkish with BERTurk, Bert multilingual and XLMRoberta models.
 
 # Additional requirements
+
+Requirements for ```Neuspell``` checker:
+```bash
+pip install -r neuspell-extras-requirements.txt
+```
 
 Requirements for ```Aspell``` checker:
 
