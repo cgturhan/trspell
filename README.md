@@ -94,18 +94,18 @@ NeuSpell is an open-source context-aware spelling correction tookit in English, 
 
 It primarily focuses on correcting Out of Vocabulary (OOV) words and non-word errors (NWE) by utilizing the BERT model. The goal of using BERT is to incorporate context into the correction process for OOV words.
 
-##Jamspell
+## Jamspell
 
 JamSpell is a state-of-the-art spellchecking library that is lightweight, fast, and precise. It takes into account the surrounding words to enhance correction accuracy.
 
-##Download Checkpoints
+## Download Checkpoints
 ```
 Coming Soon ...
 ```
 
 # LLMs
 
-##Download Checkpoints
+## Download Checkpoints
 ```
 Coming Soon ...
 ```
