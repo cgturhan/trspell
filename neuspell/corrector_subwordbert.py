@@ -1,4 +1,3 @@
-Dosya oluşturamaz, düzenleyemez veya yükleyemezsiniz … Yeterli depolama alanı yok.
 import os
 import time
 from typing import List, Dict, Union
