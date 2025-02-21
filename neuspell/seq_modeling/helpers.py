@@ -45,17 +45,17 @@ def load_data(base_path, corr_file, incorr_file):
     assert len(incorr_data) == len(corr_data)
 
     # verify if token split is same
-    for i, (x, y) in tqdm(enumerate(zip(corr_data, incorr_data))):
-        x_split, y_split = x.split(), y.split()
-        try:
-            assert len(x_split) == len(y_split)
-        except AssertionError:
-            print("# tokens in corr and incorr mismatch. retaining and trimming to min len.")
-            print(x_split, y_split)
-            mn = min([len(x_split), len(y_split)])
-            corr_data[i] = " ".join(x_split[:mn])
-            incorr_data[i] = " ".join(y_split[:mn])
-            print(corr_data[i], incorr_data[i])
+    #for i, (x, y) in tqdm(enumerate(zip(corr_data, incorr_data))):
+    #    x_split, y_split = x.split(), y.split()
+    #    try:
+    #        assert len(x_split) == len(y_split)
+    #    except AssertionError:
+    #        print("# tokens in corr and incorr mismatch. retaining and trimming to min len.")
+    #        print(x_split, y_split)
+    #        mn = min([len(x_split), len(y_split)])
+    #        corr_data[i] = " ".join(x_split[:mn])
+    #        incorr_data[i] = " ".join(y_split[:mn])
+    #        print(corr_data[i], incorr_data[i])
 
     # return as pairs
     data = []
