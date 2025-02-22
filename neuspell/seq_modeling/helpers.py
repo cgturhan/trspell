@@ -719,7 +719,7 @@ def merge_subtokens(tokens: "list"):
 
 def initialize_tokenizer(model_name):
     if "bert-" in model_name:
-        TOKENIZER = transformers.BertTokenizer.from_pretrained(model_name)
+        TOKENIZER = transformers.BertTokenizer.from_pretrained(model_name, use_auth_token=True)
         print(f"{model_name} tokenizer initialized") 
         TOKENIZER.do_basic_tokenize = True
         TOKENIZER.tokenize_chinese_chars = False
