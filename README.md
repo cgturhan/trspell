@@ -76,12 +76,12 @@ For Aspell:
 ```
 
 # Dataset:NoisedWikiTr
-https://drive.google.com/file/d/1-4IxIjAZKD_pJeEz6tO9ZEDgMg1QifcM/view?usp=drive_link
 
-https://drive.google.com/file/d/1-1s6tF_XBXzsHLbpQUtRmFXQN4KEJ5KQ/view?usp=drive_link
+https://drive.google.com/file/d/1-42D41CJ2GpMMOdqoI4FyRP5u274n4-q/view?usp=sharing
 
-https://drive.google.com/file/d/1-5z_8JBSdr7gU7cS1LoFL68LoAnofY3H/view?usp=drive_link
+https://drive.google.com/file/d/1y_AVzjUp1WudEPm_Y-k5U1Jp29LnD5jf/view?usp=sharing
 
+https://drive.google.com/file/d/13GlMx7Hy40mI3NEf9B9SBJ2qCQpidLLW/view?usp=sharing
 
 Coming Soon ... See ```data/traintest/README.md``` for more details.
 
