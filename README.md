@@ -83,7 +83,7 @@ https://drive.google.com/file/d/1y_AVzjUp1WudEPm_Y-k5U1Jp29LnD5jf/view?usp=shari
 
 https://drive.google.com/file/d/13GlMx7Hy40mI3NEf9B9SBJ2qCQpidLLW/view?usp=sharing
 
-Coming Soon ... See ```data/traintest/README.md``` for more details.
+Coming Soon ... See ```data/README.md``` for more details.
 
 
 # Toolkits
