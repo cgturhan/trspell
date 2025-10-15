@@ -2,6 +2,8 @@
 <p>Spelling correction in Turkish using toolkits and LLMs
 </h1>
 
+Paper: *Leveraging large language models for spelling correction in Turkish*  
+[View the paper (PeerJ)](https://peerj.com/articles/cs-2889)  
 # Contents
 
 - [Installations](#Installation)
@@ -154,3 +156,17 @@ wget -P ./ https://github.com/bakwc/JamSpell-models/raw/master/en.tar.gz
 tar xf ./en.tar.gz --directory ./
 ```
 
+## Citation
+
+If you use this work, please cite the following paper:
+
+```bibtex
+@article{turhan2024leveraging,
+  title={Leveraging large language models for spelling correction in Turkish},
+  author={G{\"u}zel Turhan, Ceren},
+  journal={PeerJ Computer Science},
+  volume={11},
+  pages={e2889},
+  year={2025},
+  publisher={PeerJ}
+}
