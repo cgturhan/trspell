@@ -159,7 +159,7 @@ tar xf ./en.tar.gz --directory ./
 If you use this work, please cite the following paper:
 
 ```bibtex
-@article{turhan2024leveraging,
+@article{turhan2025leveraging,
   title={Leveraging large language models for spelling correction in Turkish},
   author={G{\"u}zel Turhan, Ceren},
   journal={PeerJ Computer Science},
@@ -168,5 +168,6 @@ If you use this work, please cite the following paper:
   year={2025},
   publisher={PeerJ}
 }
+
 
 
