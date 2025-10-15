@@ -49,32 +49,32 @@ For Symspell:
 
 For Hunspell:
 ```bash
-!sudo apt-get install libhunspell-dev
-!python -m pip install hunspell
+sudo apt-get install libhunspell-dev
+python -m pip install hunspell
 ```
 For Zemberek 
 ```bash
-!pip install zemberek-python
+pip install zemberek-python
 ```
 
 For Jamspell 
 ```bash
-!sudo pip install jamspell
+sudo pip install jamspell
 ```
 For Autocorrect:
 ```bash
-!pip install autocorrect
+pip install autocorrect
 ```
 
 For Aspell:
 ```bash
-!sudo apt-get install libaspell-dev
-!wget https://files.pythonhosted.org/packages/53/30/d995126fe8c4800f7a9b31aa0e7e5b2896f5f84db4b7513df746b2a286da/aspell-python-py3-1.15.tar.bz2
-!tar -C . -xvf aspell-python-py3-1.15.tar.bz2
-%cd aspell-python-py3-1.15/
-!pip install .
-!pip install build
-!python -m build
+sudo apt-get install libaspell-dev
+wget https://files.pythonhosted.org/packages/53/30/d995126fe8c4800f7a9b31aa0e7e5b2896f5f84db4b7513df746b2a286da/aspell-python-py3-1.15.tar.bz2
+tar -C . -xvf aspell-python-py3-1.15.tar.bz2
+cd aspell-python-py3-1.15/
+pip install .
+pip install build
+python -m build
 ```
 
 # Dataset:NoisedWikiTr
@@ -84,8 +84,6 @@ https://drive.google.com/file/d/1-42D41CJ2GpMMOdqoI4FyRP5u274n4-q/view?usp=shari
 https://drive.google.com/file/d/1y_AVzjUp1WudEPm_Y-k5U1Jp29LnD5jf/view?usp=sharing
 
 https://drive.google.com/file/d/13GlMx7Hy40mI3NEf9B9SBJ2qCQpidLLW/view?usp=sharing
-
-Coming Soon ... See ```data/README.md``` for more details.
 
 
 # Toolkits
@@ -117,19 +115,19 @@ Coming Soon ...
 # Tr Dictionaries
 Aspell:
 ```
-!wget https://ftp.gnu.org/gnu/aspell/dict/tr/aspell-tr-0.50-0.tar.bz2
+wget https://ftp.gnu.org/gnu/aspell/dict/tr/aspell-tr-0.50-0.tar.bz2
 ```
 
 Hunspell VDemir:
 ```
-!wget https://github.com/vdemir/hunspell-tr/tr_TR.aff
-!wget https://github.com/vdemir/hunspell-tr/tr_TR.dic
+wget https://github.com/vdemir/hunspell-tr/tr_TR.aff
+wget https://github.com/vdemir/hunspell-tr/tr_TR.dic
 ```
 
 Hunspell TDD:
 ```
-!wget https://github.com/tdd-ai/hunspell-tr/tr_TR.aff
-!wget https://github.com//tdd-ai/hunspell-tr/tr_TR.dic
+wget https://github.com/tdd-ai/hunspell-tr/tr_TR.aff
+wget https://github.com//tdd-ai/hunspell-tr/tr_TR.dic
 ```
 
 # Additional requirements
@@ -170,3 +168,4 @@ If you use this work, please cite the following paper:
   year={2025},
   publisher={PeerJ}
 }
+
