@@ -44,7 +44,7 @@ pip install https://huggingface.co/turkish-nlp-suite/tr_core_news_trf/resolve/ma
 
 For Symspell:
 ```bash
-!pip install -U symspellpy
+pip install -U symspellpy
 ```
 
 For Hunspell:
@@ -168,4 +168,5 @@ If you use this work, please cite the following paper:
   year={2025},
   publisher={PeerJ}
 }
+
 
