@@ -32,10 +32,14 @@ class BertChecker(Corrector):
 
     def correct_strings(self, mystrings: List[str], return_all=False) -> List[str]:
         self.is_model_ready()
-        mystrings = bert_tokenize_for_valid_examples(mystrings, mystrings, self.bert_pretrained_name_or_path)[0]
+        is_roberta = "roberta" in self.pretrained_name_or_path
+        tokenize_for_valid_examples = roberta_tokenize_for_valid_examples if is_roberta else bert_tokenize_for_valid_examples
+        mystrings = tokenize_for_valid_examples(mystrings, mystrings, self.tokenizer)[0]
         data = [(line, line) for line in mystrings]
         batch_size = 4 if self.device == "cpu" else 16
-        return_strings = model_predictions(self.model, data, self.vocab, device=self.device, batch_size=batch_size, tokenizer = self.tokenizer)
+        pairs = model_predictions(self.model, data, self.vocab, device=self.device, batch_size=batch_size,
+                                  tokenizer=self.tokenizer, model_name=self.pretrained_name_or_path)
+        return_strings = [prediction for _, prediction in pairs]
         if return_all:
             return mystrings, return_strings
         else:
@@ -126,7 +130,11 @@ class BertChecker(Corrector):
         else:
             raise ValueError(f"unknown vocab type or unable to find path: {type(vocab)}")
         self.model = load_model(self.vocab, bert_pretrained_name_or_path=self.pretrained_name_or_path)
-        self.model.load_state_dict(torch.load(os.path.join(ckpt_path, 'pytorch_model.bin'), map_location=self.device))
+        state_dict = torch.load(os.path.join(ckpt_path, 'pytorch_model.bin'), map_location=self.device)
+        # checkpoints saved with transformers < 4.31 contain an `embeddings.position_ids` buffer
+        # that newer versions no longer have; it is not a learned weight, so drop it
+        state_dict = {k: v for k, v in state_dict.items() if not k.endswith("embeddings.position_ids")}
+        self.model.load_state_dict(state_dict)
         self.tokenizer = initialize_tokenizer(pretrained_name_or_path)
         return
 

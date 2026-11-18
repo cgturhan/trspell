@@ -60,7 +60,7 @@ def load_pretrained_large(model, checkpoint_path, optimizer=None, device='cuda')
     return model
 
 
-def model_predictions(model, data, vocab, device, tokenizer, batch_size=16):
+def model_predictions(model, data, vocab, device, tokenizer, batch_size=16, model_name='bert-base-cased'):
     """
     model: an instance of SubwordBert
     data: list of tuples, with each tuple consisting of correct and incorrect 
@@ -78,7 +78,9 @@ def model_predictions(model, data, vocab, device, tokenizer, batch_size=16):
     model.to(device)
     for batch_id, (batch_labels, batch_sentences) in enumerate(data_iter):
         # set batch data for bert
-        batch_labels_, batch_sentences_, batch_bert_inp, batch_bert_splits, valid_idxs = bert_tokenize_for_valid_examples(
+        # XLM-RoBERTa uses SentencePiece ("▁" marks a word start), BERT uses WordPiece ("##" marks a continuation)
+        tokenize_for_valid_examples = roberta_tokenize_for_valid_examples if "roberta" in model_name else bert_tokenize_for_valid_examples
+        batch_labels_, batch_sentences_, batch_bert_inp, batch_bert_splits, valid_idxs = tokenize_for_valid_examples(
             batch_labels, batch_sentences, tokenizer)
         if len(batch_labels_) == 0:
             print("################")
